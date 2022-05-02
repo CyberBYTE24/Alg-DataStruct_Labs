@@ -5,19 +5,19 @@ using System.Collections.Generic;
 
 namespace Lab1
 {
-    enum GlobalCommand
+    public enum GlobalCommand
     {
         Continue,
         Exit
     }
-    enum MessageType
+    public enum MessageType
     {
         Success,
         Error,
         Warning,
         Default
     }
-    static internal class Utilities
+    static public class Utilities
     {
         #region SpecFunc
         static internal void OpenFile()
@@ -45,7 +45,7 @@ namespace Lab1
             return result;
         }
 
-        static internal int ConvertStringToInt(this string str)
+        static public int ConvertStringToInt(this string str)
         {
             int result = 0;
             try
@@ -59,7 +59,7 @@ namespace Lab1
             return result;
         }
 
-        static internal void WriteMessage(string message, MessageType messageType = MessageType.Default)
+        static public void WriteMessage(string message, MessageType messageType = MessageType.Default)
         {
             ConsoleColor currenttColor = Console.ForegroundColor;
             switch (messageType)
