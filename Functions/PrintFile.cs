@@ -26,10 +26,9 @@ namespace Lab1.Functions
         static private void PrintFileFunc()
         {
             StreamReader streamReader = new StreamReader(Program.FilePath);
-            Console.Write("\n\nСодержимое файла:\n" + streamReader.ReadToEnd() + "\n\nНажмите любую кнопку, чтобы вернуться в меню");
+            Utilities.WriteMessage("\n\nСодержимое файла:\n" + streamReader.ReadToEnd(), MessageType.Default, Lab1.Command.WaitingKeyPress);
             streamReader.Close();
             streamReader.Dispose();
-            Console.ReadKey();
         }
     }
 }

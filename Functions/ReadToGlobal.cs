@@ -28,8 +28,7 @@ namespace Lab1.Functions
         {
             Program.GlobalIntMassive.Clear();
             Program.GlobalIntMassive = Utilities.ReadFileInt();
-            Utilities.WriteMessage("\nОперация завершена", MessageType.Success);
-            Thread.Sleep(2000);
+            Utilities.WriteMessage("\nОперация завершена", MessageType.Success, Lab1.Command.WaitingTwoSeconds);
         }
     }
 }

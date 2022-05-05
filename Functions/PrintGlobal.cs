@@ -41,8 +41,7 @@ namespace Lab1.Functions
                 }
                 Console.WriteLine();
             }
-            Console.Write("\n\nНажмите любую кнопку, чтобы вернуться в меню");
-            Console.ReadKey();
+            Utilities.WriteMessage("", MessageType.Success, Lab1.Command.WaitingKeyPress);
         }
     }
 }

@@ -1,6 +1,5 @@
-﻿
-
-using System;
+﻿using System;
+using System.Diagnostics;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -28,11 +27,17 @@ namespace Lab1.Functions
         }
         public GlobalCommand Command()
         {
-            PrintFileFunc();
+            long time = PrintFileFunc();
+
+            Utilities.WriteMessage($"\nОперация завершена. Затраченное время: {time}мс.", MessageType.Success, Lab1.Command.WaitingKeyPress);
+            
             return GlobalCommand.Continue;
+
         }
-        static private void PrintFileFunc()
+        static private long PrintFileFunc()
         {
+            Stopwatch sw = Stopwatch.StartNew();
+
             ref List<int> global = ref Program.GlobalIntMassive;
 
             bool flag = false;
@@ -48,8 +53,10 @@ namespace Lab1.Functions
                     }
                 }
             } while (flag);
-            Utilities.WriteMessage("\nОперация завершена", MessageType.Success);
-            Thread.Sleep(2000);
+
+            sw.Stop();
+            return sw.ElapsedMilliseconds;
+            
         }
     }
 }

@@ -32,10 +32,17 @@ namespace Lab1
 
             foreach (var func in Functions)
             {
-                Utilities.WriteMessage($"{func.Number}.\t{func.Name}", MessageType.Default);
+                Utilities.WriteMessage($"{func.Number}. {func.Name}", MessageType.Default);
             }
             Console.Write("Ввод: ");
             int selectedFunc = Console.ReadLine().ConvertStringToInt();
+            if (selectedFunc == 0)
+            {
+                Console.WriteLine("Нажмите любую кнопку, чтобы вернуться в меню");
+                Console.ReadKey();
+                goto reset;
+            }
+                
             if (Functions.Where<IFunctions>(x => x.Number == selectedFunc).First().Command() == GlobalCommand.Continue)
                 goto reset;
             return;

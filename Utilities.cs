@@ -2,6 +2,7 @@
 using System.IO;
 using System.Windows.Forms;
 using System.Collections.Generic;
+using System.Threading;
 
 namespace Lab1
 {
@@ -16,6 +17,12 @@ namespace Lab1
         Error,
         Warning,
         Default
+    }
+    public enum Command
+    {
+        WaitingTwoSeconds,
+        WaitingKeyPress,
+        Skip
     }
     static public class Utilities
     {
@@ -59,7 +66,7 @@ namespace Lab1
             return result;
         }
 
-        static public void WriteMessage(string message, MessageType messageType = MessageType.Default)
+        static public void WriteMessage(string message, MessageType messageType = MessageType.Default, Command command = Command.Skip)
         {
             ConsoleColor currenttColor = Console.ForegroundColor;
             switch (messageType)
@@ -79,6 +86,18 @@ namespace Lab1
             }
             Console.WriteLine(message);
             Console.ForegroundColor = currenttColor;
+            switch (command)
+            {
+                case Command.Skip:
+                    break;
+                case Command.WaitingKeyPress:
+                    Console.WriteLine("\nНажмите любую кнопку, чтобы вернуться в меню");
+                    Console.ReadKey();
+                    break;
+                case Command.WaitingTwoSeconds:
+                    Thread.Sleep(2000);
+                    break;
+            }
         }
         #endregion
     }

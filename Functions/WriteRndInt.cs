@@ -40,8 +40,7 @@ namespace Lab1.Functions
             streamWriter.Flush();
             streamWriter.Close();
             streamWriter.Dispose();
-            Utilities.WriteMessage("\nОперация завершена", MessageType.Success);
-            Thread.Sleep(2000);
+            Utilities.WriteMessage("\nОперация завершена!", MessageType.Success, Lab1.Command.WaitingTwoSeconds);
         }
     }
 }
