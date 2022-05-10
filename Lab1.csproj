@@ -47,6 +47,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Functions\BubbleSortWithFlag.cs" />
+    <Compile Include="Functions\ChessHorse.cs" />
     <Compile Include="Functions\Exit.cs" />
     <Compile Include="Functions\PrintFile.cs" />
     <Compile Include="Functions\PrintFirstElement.cs" />

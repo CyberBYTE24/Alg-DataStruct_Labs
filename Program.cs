@@ -36,15 +36,16 @@ namespace Lab1
             }
             Console.Write("Ввод: ");
             int selectedFunc = Console.ReadLine().ConvertStringToInt();
-            if (selectedFunc == 0)
+            try
             {
-                Console.WriteLine("Нажмите любую кнопку, чтобы вернуться в меню");
-                Console.ReadKey();
+                if (Functions.Where<IFunctions>(x => x.Number == selectedFunc).First().Command() == GlobalCommand.Continue)
+                    goto reset;
+            }
+            catch (Exception e)
+            {
+                Utilities.WriteMessage(e.Message, MessageType.Error,Command.WaitingKeyPress);
                 goto reset;
             }
-                
-            if (Functions.Where<IFunctions>(x => x.Number == selectedFunc).First().Command() == GlobalCommand.Continue)
-                goto reset;
             return;
         }
     }
