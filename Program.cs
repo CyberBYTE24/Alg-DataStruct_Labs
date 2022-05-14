@@ -20,7 +20,10 @@ namespace Lab1
         [STAThread]
         static void Main(string[] args)
         {
-            Utilities.OpenFile();
+            if (!Utilities.OpenFile())
+            {
+                return;
+            }
             reset:
             Console.Clear();
             Console.Write($"Выбран файл: {FilePath}\n\nВыберите действие:\n");

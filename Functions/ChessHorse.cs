@@ -67,7 +67,7 @@ namespace Lab1.Functions
         {
             get
             {
-                return 10;
+                return 11;
             }
         }
         public string Name

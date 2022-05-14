@@ -46,6 +46,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Functions\BubbleSortWithoutFlag.cs" />
     <Compile Include="Functions\BubbleSortWithFlag.cs" />
     <Compile Include="Functions\ChessHorse.cs" />
     <Compile Include="Functions\Exit.cs" />

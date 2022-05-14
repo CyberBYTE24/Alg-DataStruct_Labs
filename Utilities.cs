@@ -27,14 +27,15 @@ namespace Lab1
     static public class Utilities
     {
         #region SpecFunc
-        static internal void OpenFile()
+        static internal bool OpenFile()
         {
             OpenFileDialog openFileDialog = new OpenFileDialog();
             openFileDialog.Title = "Выберите текстовый файл";
             openFileDialog.Filter = "Текстовый файл (*.txt)|*.txt|Все файлы (*.*)|*.*";
             if (openFileDialog.ShowDialog() != DialogResult.OK)
-                return;
+                return false;
             Program.FilePath = openFileDialog.FileName;
+            return true;
         }
 
         static internal List<int> ReadFileInt(char[] separator = null)

@@ -9,20 +9,20 @@ using System.Threading.Tasks;
 
 namespace Lab1.Functions
 {
-    class BubbleSortWithFlag : IFunctions
+    class BubbleSortWithoutFlag : IFunctions
     {
         public int Number
         {
             get
             {
-                return 9;
+                return 10;
             }
         }
         public string Name
         {
             get
             {
-                return "Сортировка глобального массива пузырьком (с проверкой)";
+                return "Сортировка глобального массива пузырьком (без проверки)";
             }
         }
         public GlobalCommand Command()
@@ -40,19 +40,16 @@ namespace Lab1.Functions
 
             ref List<int> global = ref Program.GlobalIntMassive;
 
-            bool flag = false;
-            do
+            
+            for(int i = 1; i<global.Count; i++)
             {
-                flag = false;
-                for (int i = 0; i<global.Count-1; i++)
+                while (global[i] < global[i - 1])
                 {
-                    if (global[i] > global[i + 1])
-                    {
-                        (global[i], global[i + 1]) = (global[i+1], global[i]);
-                        flag = true;
-                    }
+                    (global[i], global[i - 1]) = (global[i - 1], global[i]);
+                    i--;
+                    if (i == 0) break;
                 }
-            } while (flag);
+            }
 
             sw.Stop();
             return sw.ElapsedMilliseconds;
