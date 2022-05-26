@@ -67,7 +67,7 @@ namespace Lab1.Functions
         {
             get
             {
-                return 11;
+                return 18;
             }
         }
         public string Name
@@ -131,6 +131,7 @@ namespace Lab1.Functions
             if (moveNum >= field.Count() * field[0].Count())
             {
                 result.Add(resultField);
+                PrintField(resultField);
                 return;
             }
             //PrintField(resultField);
@@ -154,7 +155,10 @@ namespace Lab1.Functions
             Console.Write("\n");
             for(int i=0; i<field.Count(); i++)
             {
-
+                if (field.Count() % 2 == 0)
+                {
+                    white = !white;
+                }
                 Console.Write($"   {i + 1}\t");
                 for (int j = 0; j < field[i].Count(); j++)
                 {
