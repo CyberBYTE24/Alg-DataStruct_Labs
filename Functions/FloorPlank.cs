@@ -163,7 +163,11 @@ namespace Lab1.Functions
                         {
                             Console.WriteLine(line);
                         }
-                        Console.ReadKey();
+                        Console.WriteLine("Any key - Следующий вариант;\nESC - Выход;\n");
+                        if(Console.ReadKey().Key == ConsoleKey.Escape)
+                        {
+                            throw new Exception("Выход");
+                        }
                     }
                     else
                     {

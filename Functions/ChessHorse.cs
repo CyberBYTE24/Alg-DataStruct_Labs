@@ -179,7 +179,11 @@ namespace Lab1.Functions
                 }
                 Console.Write("\n");
             }
-            Console.ReadKey();
+            Console.WriteLine("Any key - Следующий вариант;\nESC - Выход;");
+            if(Console.ReadKey().Key== ConsoleKey.Escape)
+            {
+                throw new Exception("Выход");
+            }
         }
     }
 }
