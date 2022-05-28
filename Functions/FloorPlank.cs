@@ -9,6 +9,7 @@ namespace Lab1.Functions
 {
     class PlankPlacement
     {
+        public char Symbol;
         public enum PlankDirection
         {
             Up,
@@ -16,14 +17,21 @@ namespace Lab1.Functions
             Down,
             Left
         }
+        public PlankPlacement(int Ycoord, int Xcoord, char symbol)
+        {
+            this.Xcoord = Xcoord;
+            this.Ycoord = Ycoord;
+            this.Symbol = symbol;
+        }
 
-        public PlankDirection PlankDirectionPlace;
         public int Xcoord;
         public int Ycoord;
     }
     class FloorPlank : IFunctions
     {
+        static int variantCount = 1;
         static char[][] floorPlan;
+        static List<PlankPlacement> variables = new List<PlankPlacement>();
         
         public int Number
         {
@@ -64,22 +72,104 @@ namespace Lab1.Functions
 
             //Метод "Шахматной доски"
             bool white = false;
-            for (int i = 0; i < floorPlan.Count(); i++)
+            char symbol = 'a';
+            for (int y = 0; y < floorPlan.Count(); y++)
             {
-                if (floorPlan[0].Count() % 2 == 0)
+                if (floorPlan[y].Count() % 2 == 0)
                 {
                     white = !white;
                 }
 
-                for (int j = 0; j < floorPlan[i].Count(); j++)
+                for (int x = 0; x < floorPlan[y].Count(); x++)
                 {
-                    if (white)
+                    if (white && floorPlan[y][x]=='-')
                     {
-                        
+                        variables.Add(new PlankPlacement(y, x, symbol++));
                     }
                     white = !white;
                 }
                 Console.Write("\n");
+            }
+            RecursiveEnumeration(floorPlan, 0);
+            variables.Clear();
+        }
+        static private bool DoPlacePlank(char[][] floor, PlankPlacement plank, PlankPlacement.PlankDirection direction)
+        {
+            if (floor[plank.Ycoord][plank.Xcoord] == '-')
+            {
+                switch (direction)
+                {
+                    case PlankPlacement.PlankDirection.Up:
+                        if (plank.Ycoord - 1 < 0)
+                            return false;
+                        if (floor[plank.Ycoord - 1][plank.Xcoord] == '-')
+                        {
+                            floor[plank.Ycoord][plank.Xcoord] = plank.Symbol;
+                            floor[plank.Ycoord - 1][plank.Xcoord] = plank.Symbol;
+                            return true;
+                        }
+                        return false;
+                    case PlankPlacement.PlankDirection.Right:
+                        if (plank.Xcoord + 1 > floor[plank.Ycoord].Length - 1)
+                            return false;
+                        if (floor[plank.Ycoord][plank.Xcoord + 1] == '-')
+                        {
+                            floor[plank.Ycoord][plank.Xcoord] = plank.Symbol;
+                            floor[plank.Ycoord][plank.Xcoord + 1] = plank.Symbol;
+                            return true;
+                        }
+                        return false;
+                    case PlankPlacement.PlankDirection.Down:
+                        if (plank.Ycoord + 1 > floor.Length - 1)
+                            return false;
+                        if (floor[plank.Ycoord + 1][plank.Xcoord] == '-')
+                        {
+                            floor[plank.Ycoord][plank.Xcoord] = plank.Symbol;
+                            floor[plank.Ycoord + 1][plank.Xcoord] = plank.Symbol;
+                            return true;
+                        }
+                        return false;
+                    case PlankPlacement.PlankDirection.Left:
+                        if (plank.Xcoord - 1 < 0)
+                            return false;
+                        if (floor[plank.Ycoord][plank.Xcoord - 1] == '-')
+                        {
+                            floor[plank.Ycoord][plank.Xcoord] = plank.Symbol;
+                            floor[plank.Ycoord][plank.Xcoord - 1] = plank.Symbol;
+                            return true;
+                        }
+                        return false;
+                }
+            }
+            return false;
+        }
+        static private void RecursiveEnumeration(char[][] floor, int currentPlankId)
+        {
+            char[][] currentFloor = new char[floor.Length][];
+            
+            foreach(PlankPlacement.PlankDirection plankDirection in Enum.GetValues(typeof(PlankPlacement.PlankDirection)))
+            {
+                for (int i = 0; i < floor.Length; i++)
+                {
+                    currentFloor[i] = new char[floor[i].Length];
+                    floor[i].CopyTo(currentFloor[i], 0);
+                }
+                if (DoPlacePlank(currentFloor, variables[currentPlankId], plankDirection))
+                {
+                    if (currentPlankId >= variables.Count - 1)
+                    {
+                        Console.WriteLine($"Вариант укладки #{variantCount++}:");
+                        foreach (char[] line in currentFloor)
+                        {
+                            Console.WriteLine(line);
+                        }
+                        Console.ReadKey();
+                    }
+                    else
+                    {
+                        RecursiveEnumeration(currentFloor, currentPlankId + 1);
+                    }
+                }
             }
         }
     }

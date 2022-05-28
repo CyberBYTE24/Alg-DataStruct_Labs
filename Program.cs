@@ -47,7 +47,7 @@ namespace Lab1
             catch (Exception e)
             {
                 Utilities.WriteMessage(e.Message, MessageType.Error,Command.WaitingKeyPress);
-                goto reset;
+               goto reset;
             }
             return;
         }
